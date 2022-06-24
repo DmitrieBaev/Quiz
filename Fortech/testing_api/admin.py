@@ -59,6 +59,6 @@ class QuestionAdmin(admin.ModelAdmin):
     inlines = (AnswerInlineModel,)
 
 
-@admin.register(Answer)
-class AnswerAdmin(admin.ModelAdmin):
-    list_display = ('question', 'text', 'is_valid')
+# @admin.register(Answer)
+# class AnswerAdmin(admin.ModelAdmin):
+#     list_display = ('question', 'text', 'is_valid')
