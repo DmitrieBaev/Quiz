@@ -8,7 +8,7 @@ urlpatterns = [
 
     # Аутентификация + Регистрация:
     path('api/v1/auth/', include('djoser.urls')),
-    # Логин / Логаут:
+    # Логин / Логаут: (auth/token/(login/logout))
     re_path(r'^auth/', include('djoser.urls.authtoken')),
 
     path('api/v1/questionary/', include('testing_api.urls'))

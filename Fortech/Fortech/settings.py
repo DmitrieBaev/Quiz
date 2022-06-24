@@ -84,7 +84,7 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.AllowAny',  # AllowAny по умолчанию => IsAuthenticated
     ],
-    'DEFAULT_AUTHENTICATION_TOKEN': [
+    'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
         # 'rest_framework.authentication.BasicAuthentication',    # Параметры rest_framework
         # 'rest_framework.authentication.SessionAuthentication',  # по умолчанию
