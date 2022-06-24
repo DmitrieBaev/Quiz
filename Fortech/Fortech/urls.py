@@ -11,7 +11,7 @@ urlpatterns = [
     # Логин / Логаут:
     re_path(r'^auth/', include('djoser.urls.authtoken')),
 
-    path('api/v1/questionary', include('testing_api.urls'))
+    path('api/v1/questionary/', include('testing_api.urls'))
     # path('api/v1/', include(router.urls)),
     # path('api/v1/questionary/', QuestionaryAPIView.as_view()),
     # path('api/v1/questionary/<int:questionary_id>/<int:pk>/', QuestionAPIView.as_view()),
