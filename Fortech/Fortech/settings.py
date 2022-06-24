@@ -82,7 +82,7 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 10,
     'DEFAULT_RENDERER_CLASSES': sl.get_default_renderer_classes(),
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permission.IsAuthenticated',  # AllowAny по умолчанию
+        'rest_framework.permissions.AllowAny',  # AllowAny по умолчанию => IsAuthenticated
     ],
     'DEFAULT_AUTHENTICATION_TOKEN': [
         'rest_framework.authentication.TokenAuthentication',
