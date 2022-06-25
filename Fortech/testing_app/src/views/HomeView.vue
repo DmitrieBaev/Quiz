@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-  <h1>HOME</h1>
+  <h1>Выберите вопросник из списка:</h1>
   <!-- <p>{{ questionary }}</p> -->
 
   <div v-for="currency in questionary" class="currency">

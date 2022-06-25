@@ -20,6 +20,12 @@ const routes = [
     path: '/sign-up',
     name: 'sign-up',
     component: () => import('../views/SignUpView.vue')
+  },
+  {
+    path: '/questionary/:id',
+    component: () => import('../views/QuestionaryView.vue'),
+    name: 'questionary-by-id',
+    props: true
   }
 ]
 
