@@ -10,7 +10,7 @@ class QuestionarySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Questionary
-        fields = ('caption',)
+        fields = ('pk', 'caption',)
 
 
 class AnswerSerializer(serializers.ModelSerializer):
@@ -18,7 +18,7 @@ class AnswerSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Answer
-        fields = ('text', 'is_valid')
+        fields = ('pk', 'text', 'is_valid')
 
 
 class QuestionSerializer(serializers.ModelSerializer):
