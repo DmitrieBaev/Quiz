@@ -12,6 +12,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = sl.SECRET_KEY
 DEBUG = sl.DEBUG
 ALLOWED_HOSTS = []
+CORS_ALLOWED_ORIGINS = [
+    'http://127.0.0.1:8000',
+    'http://localhost:3000',
+    'http://localhost:8080',
+]
+
 
 # Application definition
 INSTALLED_APPS = [
@@ -23,6 +29,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework.authtoken',
+    'corsheaders',
     'djoser',
     'testing_api.apps.TestingApiConfig',
 ]
@@ -35,6 +42,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'Fortech.urls'
@@ -82,7 +90,7 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 10,
     'DEFAULT_RENDERER_CLASSES': sl.get_default_renderer_classes(),
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.AllowAny',  # AllowAny по умолчанию => IsAuthenticated
+        'rest_framework.permissions.IsAuthenticated',  # AllowAny по умолчанию => IsAuthenticated
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',

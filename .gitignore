@@ -4,3 +4,7 @@ __pycache__
 /venv/
 /.idea/.gitignore
 /Fortech/Fortech/settings_local.py
+
+
+/Fortech/testing_app_vue/
+/Fortech/testing_app_react/
