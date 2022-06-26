@@ -92,8 +92,12 @@ class AnswerModelTest(TestCase):
     def test_answer_text_label(self):
         """ Правильное отображение метки поля text модели Ответ """
         a = Answer.objects.filter(text='CORRECT Тестируемый ответ в вопросе')
-        self.assertEquals(a[0]._meta.get_field('text').verbose_name,
-                          'Правильно?')
+        self.assertEquals(a[0]._meta.get_field('text').verbose_name, 'Текст ответа')
+
+    def test_answer_is_valid_label(self):
+        """ Правильное отображение метки поля is_valid модели Ответ """
+        a = Answer.objects.filter(text='CORRECT Тестируемый ответ в вопросе')
+        self.assertEquals(a[0]._meta.get_field('is_valid').verbose_name, 'Правильно?')
 
     def test_answer_text_max_length(self):
         """ Правильное отображение метки поля text модели Ответ """
