@@ -75,6 +75,7 @@ export default {
       if(this.checkedAnswers.length != this.checked_answers_current) {
       this.custom_alert_msg = null;
       this.checked_answers_current = this.checkedAnswers.length;
+
       axios
           .get(this.next_page_url)
           .then(response => {
@@ -83,6 +84,21 @@ export default {
           })
           .catch(error => { console.log(error) })
       } else { this.custom_alert_msg = 'Чтобы приступить к следующему вопросу, нужно ответить на текущий' }
+    },
+
+    submitForm(e) {
+      const formData = { answers: this.checkedAnswers }
+      // this.custom_alert_msg = this.checkedAnswers
+
+    axios
+          .post('/api/v1/questionary/user-answer/', formData)
+          .then(response => {
+            this.$router.push('/')
+            console.log(response)
+          })
+          .catch(error => {
+            console.log(error)
+          })
     }
   }
 }
