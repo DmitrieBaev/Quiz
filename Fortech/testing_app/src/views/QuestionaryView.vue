@@ -99,7 +99,7 @@ export default {
 
     submitForm(e) {
         this.send_data_to_back();  // Посылаем последний ответ на сервер
-        this.$router.push('/')  // Делаем редирект на View с результатом
+        this.$router.push('/api/v1/questionary/' + this.$route.params.id + '/results/')  // Делаем редирект на View с результатом
     }
   }
 }
