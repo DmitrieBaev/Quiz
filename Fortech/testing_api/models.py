@@ -61,5 +61,10 @@ class UserAnswer(models.Model):
     """ Пользовательский ответ """
 
     user = models.ForeignKey(User, related_name='user', verbose_name='Пользователь', on_delete=models.CASCADE)
-    questionary = models.ForeignKey(Questionary, related_name='user_questionary', on_delete=models.CASCADE)
+    questionary = models.ForeignKey(Questionary, related_name='user_questionary', verbose_name='Вопросник', on_delete=models.CASCADE)
     answer = models.ForeignKey(Answer, related_name='user_answer', on_delete=models.DO_NOTHING)
+
+    class Meta:
+        verbose_name = 'Ответы пользователя'
+        verbose_name_plural = 'Ответы пользователей'
+        ordering = ('pk',)
