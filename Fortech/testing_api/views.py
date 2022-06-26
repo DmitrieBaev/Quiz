@@ -1,10 +1,10 @@
 """ Представления """
 
-from rest_framework import generics, views, response, authentication, permissions
+from rest_framework import generics, views, response, authentication, permissions, viewsets
 
 from .models import Question, Questionary, UserAnswer, Answer
 from .paginations import QuestionAPIPagination
-from .serializers import QuestionarySerializer, QuestionSerializer, UserAnswerSerializer
+from .serializers import QuestionarySerializer, QuestionSerializer, UserAnswerSerializer_Setter, UserAnswerSerializer_Getter
 
 
 class QuestionaryAPIView(generics.ListAPIView):
@@ -22,13 +22,18 @@ class QuestionAPIView(views.APIView):
     permission_classes = (permissions.IsAuthenticated,)
 
     def get(self, request, format=None, **kwargs):
+        """
+        Переопределение получения значений
+
+        :param kwargs: Забираем идентификатор Вопросника
+        """
+
         question = Question.objects.filter(questionary__pk=kwargs['questionary_id'])
         page = self.paginate_queryset(question)
         if page is not None:
             serializer = QuestionSerializer(page, many=True)
             return self.get_paginated_response(serializer.data)
 
-        # serializer = QuestionSerializer(QuestionAPIPagination().paginate_queryset(question, request=request), many=True)
         serializer = QuestionSerializer(question, many=True)
         return response.Response(serializer.data)
 
@@ -58,7 +63,7 @@ class UserAnswerCreateAPIView(generics.CreateAPIView):
     """ Сохранение пользовательского ответа на вопрос """
 
     model = UserAnswer
-    serializer_class = UserAnswerSerializer
+    serializer_class = UserAnswerSerializer_Setter
 
     def perform_create(self, serializer):
         """
@@ -70,3 +75,24 @@ class UserAnswerCreateAPIView(generics.CreateAPIView):
         serializer.save(user=self.request.user,  # Объект текущего пользователя
                         questionary=Questionary.objects.filter(pk=self.request.data.get("questionary")).first(),  # Объект текущего вопросника
                         answer=Answer.objects.filter(pk=self.request.data.get("answer")).first())  # Объект выбранного пользователем ответа
+
+
+class ResultsAPIView(views.APIView):
+    """ Отображение результата прохождения тестов """
+
+    authentication_classes = (authentication.TokenAuthentication,)
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def get(self, request, format=None, **kwargs):
+        """
+        Переопределение метода получения
+
+        :param request: Забираем текущего пользователя
+        :param kwargs: Забираем идентификатор Вопросника
+        """
+
+        uanswer = UserAnswer.objects.prefetch_related('answer')\
+            .filter(questionary__pk=kwargs['questionary_id'],
+                    user__username=self.request.user)
+        serializer = UserAnswerSerializer_Getter(uanswer, many=True)
+        return response.Response(serializer.data)

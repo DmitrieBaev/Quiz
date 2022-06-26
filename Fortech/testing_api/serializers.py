@@ -34,7 +34,7 @@ class QuestionarySerializer(serializers.ModelSerializer):
         fields = ('pk', 'caption', 'question')
 
 
-class UserAnswerSerializer(serializers.ModelSerializer):
+class UserAnswerSerializer_Setter(serializers.ModelSerializer):
     """ Сериализатор для модели с ответами пользователей """
 
     # Сериализация внешнего ключа с текущим пользователем.
@@ -43,6 +43,16 @@ class UserAnswerSerializer(serializers.ModelSerializer):
     questionary = serializers.PrimaryKeyRelatedField(read_only=True)
     # Сериализация внешнего ключа с ответом.
     answer = serializers.PrimaryKeyRelatedField(read_only=True)
+
+    class Meta:
+        model = UserAnswer
+        fields = ('user', 'questionary', 'answer')
+
+
+class UserAnswerSerializer_Getter(serializers.ModelSerializer):
+    """ Сериализатор для модели с ответами пользователей """
+
+    answer = AnswerSerializer(read_only=True)
 
     class Meta:
         model = UserAnswer
