@@ -2,7 +2,8 @@
   <div class="questionary">
     <div class="container-sm">
         <div v-for="set in questionary_set" class="currency">
-          <p class="h1">{{ set.questionary.caption }}</p>
+          <!-- <p class="h1">{{ set.questionary.caption }}</p> -->
+          <!-- <input type="hidden" name="questionaryId" :value=set.questionary> --> <!-- v-model="questionaryId" -->
 
           <div class="alert alert-danger" role="alert" v-if="custom_alert_msg">{{ custom_alert_msg  }}</div>
 
@@ -10,25 +11,25 @@
 
             <div class="row mt-5 mb-5">
                 <div v-for="answer in set.answer" class="col-md-3">
-                    <input type="checkbox" :id="'answer_' + answer.pk" :value=answer.pk class="form-check-input" v-model="checkedAnswers">
+                    <input type="radio" :id="'answer_' + answer.pk" :value=answer.pk class="form-check-input" v-model="pickedAnswers">
                     <label :for="'answer_' + answer.pk" class="form-check-label ms-3">{{ answer.text }}</label>
                 </div>
             </div>
 
-        <div v-if="next_page_url">
-            <form class="ms-3 me-3" @submit.prevent="nextQuestion">
-                <button type="submit" class="btn btn-primary">Следующий вопрос</button>
-            </form>
-        </div>
-        <div v-else>
-            <form class="ms-3 me-3" @submit.prevent="submitForm">
-                <button type="submit" class="btn btn-primary">Результат</button>
-            </form>
-        </div>
+            <div v-if="next_page_url">
+                <form class="ms-3 me-3" @submit.prevent="nextQuestion">
+                    <button type="submit" class="btn btn-primary">Следующий вопрос</button>
+                </form>
+            </div>
+            <div v-else>
+                <form class="ms-3 me-3" @submit.prevent="submitForm">
+                    <button type="submit" class="btn btn-primary">Результат</button>
+                </form>
+            </div>
 
-        </div>
+        </div>  <!-- currency -->
         <hr>
-        <span>Выбрано: {{ checkedAnswers }} => {{ checkedAnswers.length }}</span>
+        <span>Выбрано: {{ pickedAnswers }} => {{ pickedAnswers.length }}</span>
         <hr>
         <p>{{ id }}</p>
         <p>{{ this.$route.params }}</p>
@@ -55,7 +56,7 @@ export default {
     return {
       questionary_set: null,
       next_page_url: null,
-      checkedAnswers: [],
+      pickedAnswers: [],
       checked_answers_current: 0,
       custom_alert_msg: null
     }
@@ -72,9 +73,9 @@ export default {
   },
   methods: {
     nextQuestion(e) {
-      if(this.checkedAnswers.length != this.checked_answers_current) {
+      if(this.pickedAnswers.length != this.checked_answers_current) {
       this.custom_alert_msg = null;
-      this.checked_answers_current = this.checkedAnswers.length;
+      this.checked_answers_current = this.pickedAnswers.length;
 
       axios
           .get(this.next_page_url)
@@ -87,8 +88,11 @@ export default {
     },
 
     submitForm(e) {
-      const formData = { answers: this.checkedAnswers }
-      // this.custom_alert_msg = this.checkedAnswers
+      const formData = {
+        questionary: this.$route.params.id,
+        answer: this.pickedAnswers
+      }
+      // this.custom_alert_msg = this.questionaryId
 
     axios
           .post('/api/v1/questionary/user-answer/', formData)

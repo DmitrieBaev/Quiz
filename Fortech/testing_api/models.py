@@ -45,6 +45,9 @@ class Answer(models.Model):
     def __str__(self):
         return self.text
 
+    def __repr__(self):
+        return f'<Answer {self.pk}: {self.text}>'
+
     class Meta:
         verbose_name = 'Ответ'
         verbose_name_plural = 'Ответы'
@@ -54,4 +57,5 @@ class Answer(models.Model):
 class UserAnswer(models.Model):
     """ Пользовательский ответ """
     user = models.ForeignKey(User, related_name='user', verbose_name='Пользователь', on_delete=models.CASCADE)
-    answer = models.ForeignKey(Answer, related_name='uanswer', on_delete=models.DO_NOTHING)
+    questionary = models.ForeignKey(Questionary, related_name='user_questionary', on_delete=models.CASCADE)
+    answer = models.ForeignKey(Answer, related_name='user_answer', on_delete=models.DO_NOTHING)
