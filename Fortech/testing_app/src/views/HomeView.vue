@@ -1,12 +1,9 @@
 <template>
   <div class="home">
-  <h1>Выберите вопросник из списка:</h1>
-  <!-- <p>{{ questionary }}</p> -->
-
-  <div v-for="currency in questionary" class="currency">
-    <router-link :to="{name: 'questionary-by-id', params: {id: currency.pk}}">{{ currency.caption }}</router-link>
-  </div>
-
+      <p class="h1 mb-3">Выберите вопросник из списка:</p>
+      <div v-for="currency in questionary" class="currency">
+        <router-link :to="{name: 'questionary-by-id', params: {id: currency.pk}}">{{ currency.caption }}</router-link>
+      </div>
   </div>
 </template>
 

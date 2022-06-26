@@ -5,6 +5,7 @@ from django.db import models
 
 class Questionary(models.Model):
     """ Вопросник (Набор тестов) """
+
     caption = models.CharField(max_length=100, verbose_name='Название вопросника')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата создания")
 
@@ -19,6 +20,7 @@ class Questionary(models.Model):
 
 class Question(models.Model):
     """ Вопрос """
+
     questionary = models.ForeignKey(Questionary, related_name='question', on_delete=models.PROTECT)
     text = models.CharField(max_length=500, verbose_name='Текст вопроса')
 
@@ -38,6 +40,7 @@ class Question(models.Model):
 
 class Answer(models.Model):
     """ Ответ на вопрос """
+
     question = models.ForeignKey(Question, related_name='answer', on_delete=models.PROTECT)
     text = models.CharField(max_length=250, verbose_name='Текст ответа')
     is_valid = models.BooleanField(default=False, verbose_name='Правильно?')
@@ -56,6 +59,7 @@ class Answer(models.Model):
 
 class UserAnswer(models.Model):
     """ Пользовательский ответ """
+
     user = models.ForeignKey(User, related_name='user', verbose_name='Пользователь', on_delete=models.CASCADE)
     questionary = models.ForeignKey(Questionary, related_name='user_questionary', on_delete=models.CASCADE)
     answer = models.ForeignKey(Answer, related_name='user_answer', on_delete=models.DO_NOTHING)

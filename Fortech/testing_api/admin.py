@@ -67,15 +67,3 @@ class QuestionaryAdmin(nested_admin.NestedModelAdmin):
     list_display = ('pk', 'caption', 'created_at')
     list_display_links = ('pk', 'caption')
     inlines = (QuestionInlineModel,)
-
-
-# @admin.register(Question)
-# class QuestionAdmin(admin.ModelAdmin):
-#     fields = ('questionary', 'text')
-#     list_display = ('text',)
-#     inlines = (AnswerInlineModel,)
-
-
-# @admin.register(Answer)
-# class AnswerAdmin(admin.ModelAdmin):
-#     list_display = ('question', 'text', 'is_valid')
