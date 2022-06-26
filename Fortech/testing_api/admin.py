@@ -4,6 +4,8 @@ from django.contrib import admin
 from django.core.exceptions import ValidationError
 from django.forms.models import BaseInlineFormSet
 
+import nested_admin
+
 from .models import Questionary, Question, Answer
 
 
@@ -36,27 +38,42 @@ class AnswerInlineFormSet(BaseInlineFormSet):
             raise ValidationError('Все варианты ответов НЕ могут быть ПРАВИЛЬНЫМИ!')
 
 
-class AnswerInlineModel(admin.TabularInline):
+class AnswerInlineModel(nested_admin.NestedTabularInline):
     """ Описание параметров инлайна """
     model = Answer
     formset = AnswerInlineFormSet
     # list_display = ('text', 'is_valid')
     # list_editable = ('text', 'is_valid')
     extra = 2  # Первоначальное количество записей
+
+
+class QuestionInlineFormSet(BaseInlineFormSet):
+    """ Определение FormSet инлайна ответов для вопроса """
+    pass
+
+
+class QuestionInlineModel(nested_admin.NestedTabularInline):
+    model = Question
+    # formset = QuestionInlineFormSet
+    # fields = ('questionary', 'text')
+    # list_display = ('text',)
+    inlines = (AnswerInlineModel,)
+    extra = 0
 #endregion
 
 
 @admin.register(Questionary)
-class QuestionaryAdmin(admin.ModelAdmin):
+class QuestionaryAdmin(nested_admin.NestedModelAdmin):
     list_display = ('pk', 'caption', 'created_at')
     list_display_links = ('pk', 'caption')
+    inlines = (QuestionInlineModel,)
 
 
-@admin.register(Question)
-class QuestionAdmin(admin.ModelAdmin):
-    fields = ('questionary', 'text')
-    list_display = ('text',)
-    inlines = (AnswerInlineModel,)
+# @admin.register(Question)
+# class QuestionAdmin(admin.ModelAdmin):
+#     fields = ('questionary', 'text')
+#     list_display = ('text',)
+#     inlines = (AnswerInlineModel,)
 
 
 # @admin.register(Answer)

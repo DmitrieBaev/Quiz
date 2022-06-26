@@ -27,10 +27,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'nested_admin',  # Вложенность
     'rest_framework',
     'rest_framework.authtoken',
     'corsheaders',
-    'djoser',
+    'djoser',  # Token Auth
     'testing_api.apps.TestingApiConfig',
 ]
 

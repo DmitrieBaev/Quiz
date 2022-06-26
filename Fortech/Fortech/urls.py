@@ -5,6 +5,7 @@ from django.urls import include, path, re_path
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('_nested_admin/', include('nested_admin.urls')),
 
     # Аутентификация + Регистрация:
     path('api/v1/auth/', include('djoser.urls')),
