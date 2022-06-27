@@ -95,4 +95,7 @@ class ResultsAPIView(views.APIView):
             .filter(questionary__pk=kwargs['questionary_id'],
                     user__username=self.request.user)
         serializer = UserAnswerSerializer_Getter(uanswer, many=True)
+
+        # Обработка и вывод результатов на клиентской стороне
+        # Сервер только отправляет выборку по Пользователю и текущему Вопроснику
         return response.Response(serializer.data)
