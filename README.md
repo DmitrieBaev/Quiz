@@ -1,3 +1,4 @@
+![изображение](https://user-images.githubusercontent.com/47382305/175889010-011d65d5-a740-4481-bbcd-fcc6d89826b0.png)
 
 Нужно сделать простой сервис проведения тестирования по каким-либо темам. Т.е. есть тесты с вариантами ответов, один или несколько вариантов должны быть правильными. Тесты группируются в наборы тестов, которые затем пользователь может проходить и видеть свой результат.
 <hr>
@@ -40,7 +41,12 @@
 - [x] Регистрация
 - [x] Аутентификация
 
-`Аутентификация`
+![sign-in](https://user-images.githubusercontent.com/47382305/175889276-d2592b34-2584-4b11-b071-79dbff4ce8b2.gif)
+
+![sign-up](https://user-images.githubusercontent.com/47382305/175889327-275de0ef-1164-48c6-a9f3-bd9363c6af74.gif)
+
+![sign-out](https://user-images.githubusercontent.com/47382305/175889314-46997e47-bf1b-414f-868d-6e42dccae4f0.gif)
+
 
 **Данные**
 - [X] Доступ к тестовым наборам только авторизированным пользователем
@@ -67,7 +73,8 @@ if self.instance.__valid_answer__ is not None and self.instance.__valid_answer__
     raise ValidationError('Все варианты ответов НЕ могут быть ПРАВИЛЬНЫМИ!')
 ```
 
-`валидация`
+![validation](https://user-images.githubusercontent.com/47382305/175889366-f6d95db7-4f8e-4cd0-8c29-63fe378ed372.gif)
+
 
 **Основное**
 - [X] Один правильный ответ
@@ -75,4 +82,4 @@ if self.instance.__valid_answer__ is not None and self.instance.__valid_answer__
 - [x] Отображение результата после прохождения теста
 - [x] Отображение процента правильных ответов
 
-`результат`
+![Result](https://user-images.githubusercontent.com/47382305/175889141-eb1a85b8-f040-4a18-9ccc-6c55e987a341.gif)
